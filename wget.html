@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate wget Command</title>
+</head>
+<body>
+
+    <h3>Generate wget Command</h3>
+
+    <label for="downloadLink">Download Link:</label>
+    <input type="text" id="downloadLink" placeholder="Enter download link" size="50"><br><br>
+
+    <label for="token">Token:</label>
+    <input type="text" id="token" placeholder="Enter token"><br><br>
+
+    <label for="modelName">Model Name:</label>
+    <input type="text" id="modelName" placeholder="Enter model name"><br><br>
+
+    <button onclick="generateCommand()">Generate Command</button>
+    <button onclick="copyCommand()">Copy Command</button><br><br>
+
+    <textarea id="output" rows="4" cols="80" readonly></textarea>
+
+    <script>
+        function generateCommand() {
+            const downloadLink = document.getElementById('downloadLink').value;
+            const token = document.getElementById('token').value;
+            const modelName = document.getElementById('modelName').value;
+
+            const fullLink = `${downloadLink}&token=${token}`;
+            const command = `!wget -O /content/Fooocus/models/loras/${modelName}.safetensors "${fullLink}"`;
+
+            document.getElementById('output').value = command;
+        }
+
+        function copyCommand() {
+            const output = document.getElementById('output');
+            output.select();
+            document.execCommand('copy');
+            alert('Command copied to clipboard!');
+        }
+    </script>
+
+</body>
+</html>
